@@ -2,7 +2,7 @@ steps:
 
 # Build docker container
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/sotf-6/cicd-demo', '-f', './Dockerfile.prod', '.']
+  args: [ 'build', '-tag=gcr.io/sotf-6/cicd-demo', '--file=./Dockerfile.prod', '.']
 
 # Push the container to the registry
 - name: 'gcr.io/cloud-builders/docker'
