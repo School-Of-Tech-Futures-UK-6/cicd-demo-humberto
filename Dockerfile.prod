@@ -1,0 +1,21 @@
+# This uses multi-stage builds which I'd suggest Googling if you're unfamiliar with
+# the concept as we unfortunately don't have the time on the course to go into full details.
+# We can use this to build the environment which we'll then build the application in
+# so we can access the artifacts that'll be used to run it in production.
+
+# Build environment - this builds the assets that will be used in production
+FROM node:13.12.0-alpine as build
+WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm ci
+RUN npm install react-scripts@3.4.1 -g
+COPY . ./
+RUN npm run build
+
+# Production environment - this uses the assets created from the build environment and runs them.
+FROM nginx:stable-alpine
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

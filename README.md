@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+# Inspiration Generator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This React application serves as a front end for an MVP app that serves a random inspirational phrase and author from a hard-coded list of content.
 
-## Available Scripts
+## Running with React Scripts
 
-In the project directory, you can run:
+Since this was generated with create-react-app, there are a few commands available through the react-scripts package that can help us run and develop this application further.
 
-### `npm start`
+### Run in hot-loading mode
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Navigate to the root directory for the application (most likely /inspiration-fe) and run the following command:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+npm start
+```
 
-### `npm test`
+This will boot the application up in hot-loading mode and immediately reflect changes saved in the code in the browser session it opens up.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Build assets to run locally
 
-### `npm run build`
+```
+npm build
+```
+This command will create the assets required to access the application locally, or to transfer to a server and run as an application there.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Docker
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This application can be containerized and run through Docker if that suits your needs better.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Hot-loading with Docker
 
-### `npm run eject`
+This is currently being debugged and may not work as expected yet.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The dev container contains the react-scripts necessary to hot-load changes, useful if you want to make changes in a consistent environment with other developers.
+```
+docker-compose up -d --build
+```
+This will build and run a dev container for you, which is accessible at localhost:3001. If you want to stop it at any point:
+```
+docker-compose stop
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Building a production container with Docker
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Given that this application is intended to run in the cloud using Cloud Run, we can create a container with all of the production assets required for this.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+docker-compose -f docker-compose.prod.yml up -d --build
+```
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+You can navigate to localhost:1337 to test this locally.
