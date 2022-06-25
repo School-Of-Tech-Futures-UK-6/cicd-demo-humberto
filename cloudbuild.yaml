@@ -1,15 +1,25 @@
 steps:
+
+# Build docker container
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'build', '-t', 'gcr.io/${PROJECT_ID}/${_SERVICE_NAME}:$SHORT_SHA', "-f", "./Dockerfile.prod" , '.' ]
+  args: [ 'build', '-t', 'gcr.io/sotf-6/cicd-demo', '-f', './Dockerfile.prod', '.']
+
+# Push the container to the registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: [ 'push', 'gcr.io/${PROJECT_ID}/${_SERVICE_NAME}:$SHORT_SHA']
+  args: [ 'push', 'gcr.io/sotf-6/cicd-demo']
+
+# Deploy to Cloud Run
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
-    - 'run'
-    - 'deploy'
-    - '${_SERVICE_NAME}'
-    - '--region=${_REGION}'
-    - '--platform=managed'
-    - '--allow-unauthenticated'
-    - '--service-account=${_SERVICE_ACCOUNT_EMAIL}'
-    - '--image=gcr.io/${PROJECT_ID}/${_SERVICE_NAME}:$SHORT_SHA'
+  - 'run'
+  - 'deploy'
+  - 'cloudrunservice'
+  - '--image'
+  - 'gcr.io/sotf-6/cicd-demo'
+  - '--region'
+  - 'us-central1'
+  - '--platform'
+  - 'managed'
+  - '--allow-unauthenticated'
+images:
+  - 'gcr.io/sotf-6/cicd-demo'
