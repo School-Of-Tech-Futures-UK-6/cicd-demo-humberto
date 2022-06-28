@@ -13,8 +13,14 @@ const phrases = [
     }
 ]
 
-const getRandomPhrase = () => {
-    return phrases[Math.floor(Math.random() * phrases.length)]
+const getRandomPhrase = (oldPhrase = null) => {
+    let newPhrase = phrases[Math.floor(Math.random() * phrases.length)]
+    if (oldPhrase !== null) {
+        while (oldPhrase === newPhrase) {
+            newPhrase = phrases[Math.floor(Math.random() * phrases.length)]
+        }
+    }
+    return newPhrase
 }
 
 export {
