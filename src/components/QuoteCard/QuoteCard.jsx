@@ -5,7 +5,7 @@ import './quoteCard.css'
 
 const QuoteCard = (props) => {    
     return (
-        <Card variant="outlined">
+        <Card data-testid="quote-card" variant="outlined">
           <React.Fragment>
             <CardContent>
               <Typography data-testid="quote-card-main-text" color="text.primary">{props.phrase.content}</Typography>
